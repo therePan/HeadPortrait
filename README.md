@@ -12,5 +12,8 @@ handleHeadChange = (base64, blob) => {
 }
 ```
 ```html
-<HeadPortrait onChange={this.handleHeadChange} />
+<HeadPortrait
+  side="400" // 图片变长
+  className="aClass"
+  onChange={this.handleHeadChange} />
 ```
