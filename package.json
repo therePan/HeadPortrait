@@ -1,0 +1,58 @@
+{
+  "name": "headportrait",
+  "version": "0.0.1",
+  "description": "一个简单的react图片上传组件",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "babel es6 -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zsl99a/HeadPortrait.git"
+  },
+  "keywords": [
+    "react",
+    "head",
+    "portrait",
+    "upload"
+  ],
+  "author": "清酒稻香",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zsl99a/HeadPortrait/issues"
+  },
+  "homepage": "https://github.com/zsl99a/HeadPortrait#readme",
+  "dependencies": {
+    "piexifjs": "^1.0.3",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-import": "^1.2.1",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2015-loose": "^8.0.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^3.19.0",
+    "eslint-config-react-app": "^1.0.4",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard-react": "^5.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-flowtype": "^2.34.0",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^7.0.1",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^20.0.4"
+  }
+}

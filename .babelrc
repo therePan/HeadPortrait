@@ -1,0 +1,17 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "> 2%", "IE 9", "safari >= 7"]
+      }
+    }],
+    "es2015-loose",
+    "stage-2",
+    "react",
+    "flow"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "syntax-dynamic-import"
+  ]
+}

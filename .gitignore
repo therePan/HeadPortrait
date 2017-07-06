@@ -57,3 +57,11 @@ typings/
 # dotenv environment variables file
 .env
 
+.DS_Store
+.idea
+db_config.js
+temp/*/
+repertory/*/
+!repertory/_SYSTEM/
+**/__generated__/
+dist/
