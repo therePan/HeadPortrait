@@ -3,7 +3,8 @@
     ["env", {
       "targets": {
         "browsers": ["last 2 versions", "> 2%", "IE 9", "safari >= 7"]
-      }
+      },
+      "modules": false
     }],
     "es2015-loose",
     "stage-2",
@@ -12,6 +13,7 @@
   ],
   "plugins": [
     "transform-decorators-legacy",
-    "syntax-dynamic-import"
+    "syntax-dynamic-import",
+    "transform-runtime"
   ]
 }
