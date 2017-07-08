@@ -23,7 +23,7 @@ class headPortrait extends React.Component {
     const horizontal = naturalWidth > naturalHeight
     const shortSide = horizontal ? naturalHeight : naturalWidth
     const destWidth = shortSide > this.props.side ? this.props.side : shortSide
-    const Orientation
+    let Orientation
     try {
       const exif = piexifjs.load(this.img.src)
       Orientation = exif['0th'][piexifjs.ImageIFD.Orientation]

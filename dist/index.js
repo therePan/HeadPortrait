@@ -53,8 +53,11 @@ var headPortrait = (_temp2 = _class = function (_React$Component) {
       var horizontal = naturalWidth > naturalHeight;
       var shortSide = horizontal ? naturalHeight : naturalWidth;
       var destWidth = shortSide > _this.props.side ? _this.props.side : shortSide;
-      var exif = _piexifjs2.default.load(_this.img.src);
-      var Orientation = exif['0th'][_piexifjs2.default.ImageIFD.Orientation];
+      var Orientation = void 0;
+      try {
+        var exif = _piexifjs2.default.load(_this.img.src);
+        Orientation = exif['0th'][_piexifjs2.default.ImageIFD.Orientation];
+      } catch (err) {}
       _this.ctx.canvas.width = _this.ctx.canvas.height = destWidth;
 
       _this.ctx.clearRect(0, 0, destWidth, destWidth);
