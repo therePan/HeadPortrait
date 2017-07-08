@@ -54,12 +54,17 @@ class headPortrait extends React.Component {
     )
 
     const base64 = this.ctx.canvas.toDataURL()
-    var blob = new Blob([toUint8Array(base64)], {
-      type: 'image/png',
-      endings: 'transparent',
-    })
-
-    this.props.onChange(base64, blob)
+    if (this.ctx.canvas.toBlob) {
+      this.ctx.canvas.toBlob(blob => {
+        this.props.onChange(base64, blob)
+      })
+    } else {
+      var blob = new Blob([toUint8Array(base64)], {
+        type: 'image/png',
+        endings: 'transparent',
+      })
+      this.props.onChange(base64, blob)
+    }
   }
 
   componentWillMount() {
