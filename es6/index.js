@@ -23,8 +23,11 @@ class headPortrait extends React.Component {
     const horizontal = naturalWidth > naturalHeight
     const shortSide = horizontal ? naturalHeight : naturalWidth
     const destWidth = shortSide > this.props.side ? this.props.side : shortSide
-    const exif = piexifjs.load(this.img.src)
-    const Orientation = exif['0th'][piexifjs.ImageIFD.Orientation]
+    const Orientation
+    try {
+      const exif = piexifjs.load(this.img.src)
+      Orientation = exif['0th'][piexifjs.ImageIFD.Orientation]
+    } catch (err) {}
     this.ctx.canvas.width = this.ctx.canvas.height = destWidth
 
     this.ctx.clearRect(0, 0, destWidth, destWidth)
