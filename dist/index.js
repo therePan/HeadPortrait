@@ -30,6 +30,8 @@ var _piexifjs2 = _interopRequireDefault(_piexifjs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var jpeg = 'image/jpeg';
+
 var headPortrait = (_temp2 = _class = function (_React$Component) {
   (0, _inherits3.default)(headPortrait, _React$Component);
 
@@ -42,10 +44,7 @@ var headPortrait = (_temp2 = _class = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.handleChange = function (ev) {
-      ev.target.files[0] && _this.reader.readAsDataURL(ev.target.files[0]);
-      ev.target.value = '';
-    }, _this.zipImage = function () {
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, _React$Component.call.apply(_React$Component, [this].concat(args))), _this), _this.zipImage = function (result) {
       var _this$img = _this.img,
           naturalWidth = _this$img.naturalWidth,
           naturalHeight = _this$img.naturalHeight;
@@ -54,10 +53,12 @@ var headPortrait = (_temp2 = _class = function (_React$Component) {
       var shortSide = horizontal ? naturalHeight : naturalWidth;
       var destWidth = shortSide > _this.props.side ? _this.props.side : shortSide;
       var Orientation = void 0;
-      try {
-        var exif = _piexifjs2.default.load(_this.img.src);
+
+      if (result) {
+        var exif = _piexifjs2.default.load(result);
         Orientation = exif['0th'][_piexifjs2.default.ImageIFD.Orientation];
-      } catch (err) {}
+      }
+
       _this.ctx.canvas.width = _this.ctx.canvas.height = destWidth;
 
       _this.ctx.clearRect(0, 0, destWidth, destWidth);
@@ -84,22 +85,37 @@ var headPortrait = (_temp2 = _class = function (_React$Component) {
         endings: 'transparent'
       });
       _this.props.onChange(base64, blob);
+    }, _this.handleChange = function (ev) {
+      var file = ev.target.files[0];
+      if (file) {
+        var reader = _this.reader;
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          var base64 = reader.result;
+          if (file.type === jpeg) {
+            reader.readAsBinaryString(file);
+            reader.onload = function () {
+              _this.img.onload = function () {
+                return _this.zipImage(reader.result);
+              };
+              _this.img.src = base64;
+            };
+          } else {
+            _this.img.onload = function () {
+              return _this.zipImage();
+            };
+            _this.img.src = base64;
+          }
+        };
+      }
+      ev.target.value = '';
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
   headPortrait.prototype.componentWillMount = function componentWillMount() {
-    var _this2 = this;
-
     this.ctx = document.createElement('canvas').getContext('2d');
-    this.reader = new FileReader();
-    this.reader.onload = function () {
-      _this2.img.src = _this2.reader.result;
-    };
     this.img = document.createElement('img');
-    this.img.width = 500;
-    this.img.onload = function () {
-      return _this2.zipImage(_this2.reader.result);
-    };
+    this.reader = new FileReader();
   };
 
   headPortrait.prototype.render = function render() {

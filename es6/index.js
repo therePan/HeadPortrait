@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import piexifjs from 'piexifjs'
 
+const jpeg = 'image/jpeg'
+
 class headPortrait extends React.Component {
   static propTypes = {
     className: PropTypes.string,
@@ -13,21 +15,18 @@ class headPortrait extends React.Component {
     side: 320,
   }
 
-  handleChange = (ev) => {
-    ev.target.files[0] && this.reader.readAsDataURL(ev.target.files[0])
-    ev.target.value = ''
-  }
-
-  zipImage = () => {
+  zipImage = (result) => {
     const { naturalWidth, naturalHeight } = this.img
     const horizontal = naturalWidth > naturalHeight
     const shortSide = horizontal ? naturalHeight : naturalWidth
     const destWidth = shortSide > this.props.side ? this.props.side : shortSide
     let Orientation
-    try {
-      const exif = piexifjs.load(this.img.src)
+
+    if (result) {
+      const exif = piexifjs.load(result)
       Orientation = exif['0th'][piexifjs.ImageIFD.Orientation]
-    } catch (err) {}
+    }
+
     this.ctx.canvas.width = this.ctx.canvas.height = destWidth
 
     this.ctx.clearRect(0, 0, destWidth, destWidth)
@@ -61,13 +60,32 @@ class headPortrait extends React.Component {
     this.props.onChange(base64, blob)
   }
 
+  handleChange = (ev) => {
+    const file = ev.target.files[0]
+    if (file) {
+      const reader = this.reader
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        const base64 = reader.result
+        if (file.type === jpeg) {
+          reader.readAsBinaryString(file)
+          reader.onload = () => {
+            this.img.onload = () => this.zipImage(reader.result)
+            this.img.src = base64
+          }
+        } else {
+          this.img.onload = () => this.zipImage()
+          this.img.src = base64
+        }
+      }
+    }
+    ev.target.value = ''
+  }
+
   componentWillMount() {
     this.ctx = document.createElement('canvas').getContext('2d')
-    this.reader = new FileReader()
-    this.reader.onload = () => { this.img.src = this.reader.result }
     this.img = document.createElement('img')
-    this.img.width = 500
-    this.img.onload = () => this.zipImage(this.reader.result)
+    this.reader = new FileReader()
   }
 
   render() {
