@@ -10,7 +10,7 @@ class headPortrait extends React.Component {
   }
 
   static defaultProps = {
-    side: 160,
+    side: 320,
   }
 
   handleChange = (ev) => {
@@ -53,18 +53,12 @@ class headPortrait extends React.Component {
       shortSide, shortSide, 0, 0, destWidth, destWidth,
     )
 
-    const base64 = this.ctx.canvas.toDataURL()
-    if (this.ctx.canvas.toBlob) {
-      this.ctx.canvas.toBlob(blob => {
-        this.props.onChange(base64, blob)
-      })
-    } else {
-      var blob = new Blob([toUint8Array(base64)], {
-        type: 'image/png',
-        endings: 'transparent',
-      })
-      this.props.onChange(base64, blob)
-    }
+    const base64 = this.ctx.canvas.toDataURL('image/jpeg', 0.32)
+    var blob = new Blob([toUint8Array(base64)], {
+      type: 'image/jpeg',
+      endings: 'transparent',
+    })
+    this.props.onChange(base64, blob)
   }
 
   componentWillMount() {

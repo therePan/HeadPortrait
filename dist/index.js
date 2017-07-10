@@ -78,18 +78,12 @@ var headPortrait = (_temp2 = _class = function (_React$Component) {
       }
       _this.ctx.drawImage(_this.img, horizontal ? (naturalWidth - naturalHeight) / 2 : 0, horizontal ? 0 : (naturalHeight - naturalWidth) / 5, shortSide, shortSide, 0, 0, destWidth, destWidth);
 
-      var base64 = _this.ctx.canvas.toDataURL();
-      if (_this.ctx.canvas.toBlob) {
-        _this.ctx.canvas.toBlob(function (blob) {
-          _this.props.onChange(base64, blob);
-        });
-      } else {
-        var blob = new Blob([toUint8Array(base64)], {
-          type: 'image/png',
-          endings: 'transparent'
-        });
-        _this.props.onChange(base64, blob);
-      }
+      var base64 = _this.ctx.canvas.toDataURL('image/jpeg', 0.32);
+      var blob = new Blob([toUint8Array(base64)], {
+        type: 'image/jpeg',
+        endings: 'transparent'
+      });
+      _this.props.onChange(base64, blob);
     }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
@@ -123,7 +117,7 @@ var headPortrait = (_temp2 = _class = function (_React$Component) {
   onChange: _propTypes2.default.func,
   side: _propTypes2.default.number
 }, _class.defaultProps = {
-  side: 160
+  side: 320
 }, _temp2);
 exports.default = headPortrait;
 
