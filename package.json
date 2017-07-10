@@ -1,6 +1,6 @@
 {
   "name": "headportrait",
-  "version": "0.0.7",
+  "version": "0.1.8",
   "description": "一个简单的react图片上传组件",
   "main": "dist/index.js",
   "scripts": {

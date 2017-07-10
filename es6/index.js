@@ -10,7 +10,7 @@ class headPortrait extends React.Component {
   }
 
   static defaultProps = {
-    side: 400,
+    side: 160,
   }
 
   handleChange = (ev) => {

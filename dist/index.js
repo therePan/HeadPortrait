@@ -123,7 +123,7 @@ var headPortrait = (_temp2 = _class = function (_React$Component) {
   onChange: _propTypes2.default.func,
   side: _propTypes2.default.number
 }, _class.defaultProps = {
-  side: 400
+  side: 160
 }, _temp2);
 exports.default = headPortrait;
 
